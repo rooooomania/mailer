@@ -55,7 +55,7 @@ function sendMail({from, to, subject, text, html, attachments}, callback) {
     });
 }
 
-module.exports = sendMail;
+exports.sendMail = sendMail;
 
 /*
  * test1: パラメータから宛先、タイトル、本文を受け取り、sendMailする
