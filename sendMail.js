@@ -37,7 +37,7 @@ function sendMail({from, to, subject, text, html, attachments}, callback) {
     };
 
     const authOptions = {
-        user: 's-moriya@eplus.co.jp',
+        user: '<YOUR ADDRESS>',
         refreshToken,
         accessToken,
         expires: 1484314697598
