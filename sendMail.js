@@ -47,10 +47,11 @@ function sendMail({from, to, subject, text, html, attachments}, callback) {
 
     transporter.sendMail(mailOptions, (err, res) => {
         if (err) {
+            callback(err);
             return console.log(err);
         }
         console.log('Message sent: ', res);
-        callback();
+        callback(null, res);
         transporter.close();
     });
 }
@@ -93,7 +94,7 @@ expect(sendMailSpy.args[0][0]).to.include(targetMock);
 logSpy = sinon.stub(console, 'log');
 sendMailSpy.callArgWith(1, undefined, 'test!');
 expect(logSpy).to.have.been.calledWith('Message sent: ', 'test!');
-expect(callback).to.have.been.called;
+expect(callback).to.have.been.calledWith(null, 'test!');
 
 /*
  * test3: 失敗したらコールバック処理を行う
@@ -101,6 +102,7 @@ expect(callback).to.have.been.called;
 
 sendMailSpy.callArgWith(1, 'error!', undefined);
 expect(logSpy).to.have.been.calledWith('error!');
+expect(callback).to.have.been.calledWith('error!');
 
 logSpy.restore();
 
